@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7bacjjn5swko"]
+
+[ext_resource type="PackedScene" uid="uid://7ob5lh5ro8xi" path="res://Player/player.tscn" id="1_6o4hl"]
+[ext_resource type="Texture2D" uid="uid://cyfrjlaj651ec" path="res://Sprites/Vanguard Summons.png" id="2_7y03x"]
+
+[node name="map" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_6o4hl")]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("2_7y03x")
