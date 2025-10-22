@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7bacjjn5swko"]
+[gd_scene load_steps=4 format=3 uid="uid://c7bacjjn5swko"]
 
 [ext_resource type="PackedScene" uid="uid://7ob5lh5ro8xi" path="res://Player/player.tscn" id="1_6o4hl"]
 [ext_resource type="Texture2D" uid="uid://cyfrjlaj651ec" path="res://Sprites/Vanguard Summons.png" id="2_7y03x"]
+[ext_resource type="PackedScene" uid="uid://bxgjn72tktmvb" path="res://Scene/object.tscn" id="3_7y03x"]
 
 [node name="map" type="Node2D"]
 
@@ -11,3 +12,34 @@
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
 texture = ExtResource("2_7y03x")
+
+[node name="Object" parent="." instance=ExtResource("3_7y03x")]
+position = Vector2(-282, 1)
+scale = Vector2(2, 2)
+
+[node name="Object2" parent="." instance=ExtResource("3_7y03x")]
+position = Vector2(-515, -265)
+scale = Vector2(2, 2)
+
+[node name="Object3" parent="." instance=ExtResource("3_7y03x")]
+position = Vector2(-505, 247)
+rotation = 0.12217305
+scale = Vector2(2, 2)
+
+[node name="Object4" parent="." instance=ExtResource("3_7y03x")]
+position = Vector2(-86.00001, -238.00003)
+rotation = 0.7853982
+scale = Vector2(2, 2)
+
+[node name="Object5" parent="." instance=ExtResource("3_7y03x")]
+position = Vector2(68.999985, -257.00003)
+rotation = 0.7853982
+scale = Vector2(1.5, 1.5)
+
+[node name="Object6" parent="." instance=ExtResource("3_7y03x")]
+position = Vector2(516, -1.0000005)
+scale = Vector2(1.5, 1.5)
+
+[node name="Object7" parent="." instance=ExtResource("3_7y03x")]
+position = Vector2(284, 262)
+scale = Vector2(4, 2)
