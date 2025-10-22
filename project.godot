@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Freelancer"
-run/main_scene="uid://7ob5lh5ro8xi"
+run/main_scene="uid://c7bacjjn5swko"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

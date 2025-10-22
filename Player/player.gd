@@ -1,13 +1,17 @@
 extends Area2D
 
-const MAX_MANA = 10
-var mana = 5
+# player stats
+
+const MAX_MANA = 100
+var mana = MAX_MANA / 2
+
+var spell_state = false
 
 const MAX_SUS = 5
 var sus = 1
 
-# player stats
-@export var speed = 400
+const BASE_SPEED = 400
+var speed = BASE_SPEED
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,8 +51,16 @@ func _process(delta: float) -> void:
 	position += velocity * delta
 	# position = position.clamp(Vector2.ZERO)
 	
-	if (Input.is_action_just_pressed("cast_spell") && mana >= 1):
-		mana -= 1
+	# cast spell
+	if (Input.is_action_just_pressed("cast_spell")):
+		if (spell_state == true):			# if spell is already in use, player can deactivate it free of charge
+			spell_state = false
+			speed = BASE_SPEED
+			
+		elif (mana > 10):			# otherwise, if the player has some mana, cast the spell
+			spell_state = true
+			mana -= 10
+			speed = BASE_SPEED * 2
 	
 	if (mana < MAX_MANA):
 		mana += delta
