@@ -18,3 +18,18 @@ position = Vector2(0, 11)
 shape = SubResource("CircleShape2D_l8h54")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+
+[node name="sus" type="ProgressBar" parent="."]
+offset_left = -367.0
+offset_top = -199.0
+offset_right = -64.0
+offset_bottom = -172.0
+theme_override_colors/font_color = Color(0.94785756, 0.1710025, 0.1549311, 1)
+
+[node name="mana" type="ProgressBar" parent="."]
+offset_left = -366.0
+offset_top = -167.0
+offset_right = -65.0
+offset_bottom = -140.0
+theme_override_colors/font_color = Color(0.24822837, 0.49321663, 1, 1)
