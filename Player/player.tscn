@@ -6,13 +6,14 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_btcbx"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l8h54"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btcbx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwnis"]
 
 [node name="Player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_btcbx")
 gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_4ntmi")
 metadata/_edit_group_ = true
 
@@ -22,8 +23,8 @@ texture_filter = 1
 texture = ExtResource("1_l8h54")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 11)
-shape = SubResource("CircleShape2D_l8h54")
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_btcbx")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -66,5 +67,6 @@ position = Vector2(0, 11)
 scale = Vector2(6, 6)
 shape = SubResource("CircleShape2D_gwnis")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="LevitationField" to="." method="_on_levitation_field_body_entered"]
 [connection signal="body_shape_entered" from="LevitationField" to="." method="_on_levitation_field_body_shape_entered"]

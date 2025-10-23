@@ -6,6 +6,7 @@ var speed = 50
 
 const search_dist_max = 25
 const search_dist_min = 10
+var safe_dist = 1
 
 const wander_time = 10
 var curr_time = 0
@@ -14,7 +15,7 @@ var suspicious = true
 var sus_time = 0
 
 # shooting
-@export var Bullet = null
+@export var Bullet : PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,7 +26,6 @@ func _ready() -> void:
 	$Sus.hide()
 	$Alarm.hide()
 	$PewPew.hide()
-	Bullet = $Bullet
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,20 +33,30 @@ func _process(delta: float) -> void:
 	var velocity = (target_pos).normalized() * speed
 		
 	# update player position based on velocity
-	if position.distance_to(target_pos) > 1:
+	if sus_time > 3:
+		if position.distance_to(get_parent().get_node("Player").position) > safe_dist:
+			position += velocity * delta
+	else:
 		position += velocity * delta
 	
 	# position timer - have the entity wander to a diff position every 5 seconds
 	curr_time += delta
 	if (sus_time >= 3):  # if suspicion is over a certain level, find the player
 		var player_pos = get_parent().get_node("Player").position
-		target_pos = target_pos - position
-		if (sus_time >= 9 && curr_time > 1):
+		target_pos = player_pos - position
+		safe_dist = 40
+		if (sus_time >= 9 && curr_time > 0.2):
+			var b = Bullet.instantiate()
+			get_tree().root.add_child(b)
+			b.transform = $PewPew.transform
+			b.position = position
 			curr_time = 0
+			safe_dist = 120
 			
 	elif(curr_time >= wander_time):			# wander arnd when minimal suspicion
 		target_pos = get_rand_pos()
 		curr_time = 0;
+		safe_dist = 1
 		
 	if (suspicious):  # increase suspicion level when suspicious, otherwise decrease it
 		sus_time += delta
@@ -62,7 +72,6 @@ func get_rand_pos() -> Vector2:
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:  # detect magic areas used by player
-	print(area.name)
 	if (area.is_in_group('Magical')):
 		print('MAGE DETECTED')
 		suspicious = true

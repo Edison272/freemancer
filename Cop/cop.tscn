@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cyfrjlaj651ec" path="res://Sprites/Vanguard Summons.png" id="1_kxvtk"]
 [ext_resource type="Script" uid="uid://csen2mas3ul3x" path="res://Cop/cop.gd" id="1_qt3mf"]
+[ext_resource type="PackedScene" uid="uid://b7wxdhb2a2mjq" path="res://Bullet/bullet.tscn" id="2_eitmh"]
 [ext_resource type="Texture2D" uid="uid://dh8gp6dr414x8" path="res://Sprites/Circle.png" id="2_i5ewt"]
 [ext_resource type="Texture2D" uid="uid://ctqhrvkw2dsjq" path="res://Sprites/AutoRifle.png" id="4_15lbw"]
 
@@ -11,12 +12,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i5ewt"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_15lbw"]
-
 [node name="Cop" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_qt3mf")
 gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_qt3mf")
+Bullet = ExtResource("2_eitmh")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -68,18 +69,6 @@ text = "ITS A MAGE GETTEM"
 texture_filter = 1
 position = Vector2(2, 2)
 texture = ExtResource("4_15lbw")
-
-[node name="Bullet" type="Area2D" parent="."]
-collision_layer = 4
-
-[node name="Sprite2D" type="Sprite2D" parent="Bullet"]
-scale = Vector2(0.01, 0.01)
-texture = ExtResource("2_i5ewt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
-position = Vector2(0, -0.00024414063)
-scale = Vector2(0.1, 0.1)
-shape = SubResource("CircleShape2D_15lbw")
 
 [connection signal="area_entered" from="DetectionField" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="DetectionField" to="." method="_on_detection_field_area_exited"]

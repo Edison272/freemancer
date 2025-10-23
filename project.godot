@@ -22,6 +22,7 @@ project/assembly_name="Freelancer"
 [global_group]
 
 Magical="for any object that is created with magic"
+Bullet=""
 
 [input]
 
