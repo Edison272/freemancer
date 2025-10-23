@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://biochcbwnh7t7"]
+[gd_scene load_steps=7 format=3 uid="uid://biochcbwnh7t7"]
 
 [ext_resource type="Texture2D" uid="uid://cyfrjlaj651ec" path="res://Sprites/Vanguard Summons.png" id="1_kxvtk"]
 [ext_resource type="Script" uid="uid://csen2mas3ul3x" path="res://Cop/cop.gd" id="1_qt3mf"]
 [ext_resource type="Texture2D" uid="uid://dh8gp6dr414x8" path="res://Sprites/Circle.png" id="2_i5ewt"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qt3mf"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_kxvtk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i5ewt"]
 
-[node name="Cop" type="Area2D"]
+[node name="Cop" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_qt3mf")
+gravity_scale = 0.0
 script = ExtResource("1_qt3mf")
 metadata/_edit_group_ = true
 
@@ -20,12 +24,34 @@ texture = ExtResource("1_kxvtk")
 position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_kxvtk")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="DetectionField" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="DetectionField"]
 modulate = Color(1, 1, 1, 0.039215688)
 texture_filter = 1
 scale = Vector2(0.78, 0.78)
 texture = ExtResource("2_i5ewt")
 
-[node name="DetectionShape2D" type="CollisionShape2D" parent="."]
+[node name="DetectionShape2D" type="CollisionShape2D" parent="DetectionField"]
 scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_i5ewt")
+
+[node name="Sus" type="Label" parent="."]
+texture_filter = 1
+offset_left = -3.0
+offset_top = -43.0
+offset_right = 5.0
+offset_bottom = -20.0
+text = "?"
+
+[node name="Alarm" type="Label" parent="."]
+texture_filter = 1
+offset_left = -2.0
+offset_top = -43.0
+offset_right = 3.0
+offset_bottom = -20.0
+text = "!"
+
+[connection signal="area_entered" from="DetectionField" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="DetectionField" to="." method="_on_detection_field_area_exited"]

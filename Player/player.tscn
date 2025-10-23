@@ -1,15 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://7ob5lh5ro8xi"]
+[gd_scene load_steps=7 format=3 uid="uid://7ob5lh5ro8xi"]
 
 [ext_resource type="Script" uid="uid://ca2thp8ytogrl" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://dt6qihscrycmd" path="res://Sprites/Wyzzardd.png" id="1_l8h54"]
+[ext_resource type="Texture2D" uid="uid://cmr11ggv5vmxn" path="res://Sprites/Call The Vanguard.png" id="3_btcbx"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_btcbx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l8h54"]
 
-[node name="Player" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwnis"]
+
+[node name="Player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_btcbx")
+gravity_scale = 0.0
 script = ExtResource("1_4ntmi")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 texture = ExtResource("1_l8h54")
 
@@ -41,3 +49,22 @@ offset_top = -199.0
 offset_right = 372.0
 offset_bottom = -165.0
 placeholder_text = "0"
+
+[node name="LevitationField" type="Area2D" parent="." groups=["Magical"]]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="LevitationField"]
+self_modulate = Color(0.64, 0.64, 0.64, 1)
+texture_filter = 1
+position = Vector2(0, 11)
+scale = Vector2(3, 3)
+texture = ExtResource("3_btcbx")
+
+[node name="LevitationShape" type="CollisionShape2D" parent="LevitationField" groups=["Magical"]]
+position = Vector2(0, 11)
+scale = Vector2(6, 6)
+shape = SubResource("CircleShape2D_gwnis")
+
+[connection signal="body_entered" from="LevitationField" to="." method="_on_levitation_field_body_entered"]
+[connection signal="body_shape_entered" from="LevitationField" to="." method="_on_levitation_field_body_shape_entered"]
