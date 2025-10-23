@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 # player stats
 const MAX_MANA = 100
@@ -92,8 +92,7 @@ func _on_levitation_field_body_shape_entered(body_rid: RID, body: Node2D, body_s
 
  # Replace with function body.
 
-
-func _on_body_entered(body: Node) -> void:
-	if (body.is_in_group('Bullet')):
+func _on_area_entered(area: Area2D) -> void:
+	if (area.is_in_group('Bullet')):
 		print('OW')
 		mana += 10
