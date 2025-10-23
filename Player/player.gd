@@ -13,6 +13,8 @@ var sus = 1
 const BASE_SPEED = 400
 var speed = BASE_SPEED
 
+var money = 0;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	update_mana_ui()
