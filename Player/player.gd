@@ -17,6 +17,7 @@ const mortgage = 200
 
 #j*b
 var package_array = []
+const max_packages = 5
 
 
 # Called when the node enters the scene tree for the first time.
@@ -72,7 +73,9 @@ func _process(delta: float) -> void:
 			
 			if (package_array.size() > 1):
 				for i in range(package_array.size()-1, -1, -1): # drop all packages except for the one being carried
-					package_array[i].position -= Vector2(0, -30)
+					var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
+					var random_radius = randf_range(0, 50)
+					package_array[i].position = position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
 					package_array.remove_at(i)
 			
 		elif (mana > 10):					# otherwise, if the player has some mana, cast the spell
@@ -123,4 +126,5 @@ func _on_area_entered(area: Area2D) -> void:
 			money += 5
 func _on_levitation_field_area_entered(area: Area2D) -> void:
 	if (area.is_in_group('Package')):
-		package_array.append(area)
+		if (package_array.size() < max_packages): # if the player isn't casting magic, they can only hold one package
+			package_array.append(area)

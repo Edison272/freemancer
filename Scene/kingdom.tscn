@@ -12,10 +12,10 @@
 [node name="Player" parent="." instance=ExtResource("1_6o4hl")]
 
 [node name="Cop" parent="." instance=ExtResource("2_7y03x")]
-position = Vector2(182, 0)
+position = Vector2(-128, -120)
 
 [node name="Cop2" parent="." instance=ExtResource("2_7y03x")]
-position = Vector2(0, 186)
+position = Vector2(-142, 170)
 
 [node name="Objects" type="Node" parent="."]
 
@@ -52,14 +52,30 @@ scale = Vector2(4, 2)
 
 [node name="Package2" parent="Objects" instance=ExtResource("6_uxvl6")]
 position = Vector2(-313, 17)
-script = null
 
 [node name="Package" parent="Objects" instance=ExtResource("6_uxvl6")]
 position = Vector2(-257, -15)
-script = null
 
 [node name="Packagee" parent="Objects" instance=ExtResource("5_uxvl6")]
 position = Vector2(-310, 10)
 
 [node name="Destination" parent="Objects" instance=ExtResource("5_6jhyd")]
 position = Vector2(293, 2.9999995)
+
+[node name="Cop3" parent="." instance=ExtResource("2_7y03x")]
+position = Vector2(209, -103)
+
+[node name="Cop5" parent="." instance=ExtResource("2_7y03x")]
+position = Vector2(52, -180)
+
+[node name="Cop6" parent="." instance=ExtResource("2_7y03x")]
+position = Vector2(42, 220)
+
+[node name="Cop4" parent="." instance=ExtResource("2_7y03x")]
+position = Vector2(189, 124)
+
+[node name="Cop7" parent="." instance=ExtResource("2_7y03x")]
+position = Vector2(209, -103)
+
+[node name="Cop8" parent="." instance=ExtResource("2_7y03x")]
+position = Vector2(209, -103)

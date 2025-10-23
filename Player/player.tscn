@@ -25,6 +25,7 @@ shape = SubResource("CapsuleShape2D_btcbx")
 zoom = Vector2(1.5, 1.5)
 
 [node name="sus" type="ProgressBar" parent="."]
+visible = false
 offset_left = -367.0
 offset_top = -199.0
 offset_right = -64.0

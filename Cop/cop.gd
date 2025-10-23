@@ -11,7 +11,7 @@ var safe_dist = 1
 const wander_time = 10
 var curr_time = 0
 
-var suspicious = true
+var suspicious = false
 var sus_time = 0
 
 # shooting
@@ -20,7 +20,8 @@ var sus_time = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# start at a random position with a random target direction
-	position = get_rand_pos()
+	# position = get_rand_pos()
+	suspicious = false
 	target_pos = get_rand_pos()
 	$BigAlarm.hide()
 	$Sus.hide()
@@ -33,7 +34,7 @@ func _process(delta: float) -> void:
 	var velocity = (target_pos).normalized() * speed
 		
 	# update player position based on velocity
-	if sus_time > 3:
+	if sus_time > 0.75:
 		if position.distance_to(get_parent().get_node("Player").position) > safe_dist:
 			position += velocity * delta
 	else:
@@ -41,17 +42,21 @@ func _process(delta: float) -> void:
 	
 	# position timer - have the entity wander to a diff position every 5 seconds
 	curr_time += delta
-	if (sus_time >= 3):  # if suspicion is over a certain level, find the player
+	if (sus_time < 0):
+		sus_time = 0
+	if (sus_time >= 0.5):  # if suspicion is over a certain level, find the player
 		var player_pos = get_parent().get_node("Player").position
 		target_pos = player_pos - position
 		safe_dist = 40
-		if (sus_time >= 9 && curr_time > 0.2):
+		if (sus_time >= 3 && curr_time > 0.2):
 			var b = Bullet.instantiate()
 			get_tree().root.add_child(b)
 			b.transform = $PewPew.transform
 			b.position = position
 			curr_time = 0
 			safe_dist = 120
+		if (sus_time > 4):
+			sus_time = 4
 			
 	elif(curr_time >= wander_time):			# wander arnd when minimal suspicion
 		target_pos = get_rand_pos()
@@ -59,6 +64,7 @@ func _process(delta: float) -> void:
 		safe_dist = 1
 		
 	if (suspicious):  # increase suspicion level when suspicious, otherwise decrease it
+		print(sus_time)
 		sus_time += delta
 	else:
 		sus_time -= delta * 2
@@ -85,21 +91,21 @@ func set_aggression_state() -> void: #set the vfx vased on the aggression level
 	# sus is a question mark - cop is curious
 	# Alarm is an exclamation point - cop WILL attack
 	var player_pos = get_parent().get_node("Player").position
-	if (sus_time >= 9):
+	if (sus_time >= 3):
 		speed = BASE_SPEED * 2
 		$BigAlarm.show()
 		$Sus.hide()
 		$Alarm.hide()
 		$PewPew.show()
 		$PewPew.look_at(player_pos)
-	elif (sus_time >= 6): 
+	elif (sus_time >= 1.5): 
 		speed = BASE_SPEED * 1.5
 		$BigAlarm.hide()
 		$Sus.hide()
 		$Alarm.show()
 		$PewPew.show()
 		$PewPew.look_at(player_pos)
-	elif (sus_time >= 3):
+	elif (sus_time >= 0.5):
 		speed = BASE_SPEED
 		$BigAlarm.hide()
 		$Sus.show()

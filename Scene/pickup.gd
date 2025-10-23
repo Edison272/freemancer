@@ -1,6 +1,6 @@
 extends Node2D
 
-const SPAWNRATE = 0.1
+const SPAWNRATE = 0.5
 
 var spawn_time = 0
 
@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 		spawn_time = 0
 		
 		var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
-		var random_radius = randf_range(0, 10)
+		var random_radius = randf_range(0, 100)
 		var p = package.instantiate()
 		get_tree().root.add_child(p)
 		p.position = position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
