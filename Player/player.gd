@@ -9,7 +9,7 @@ var spell_state = false
 const MAX_SUS = 5
 var sus = 1
 
-const BASE_SPEED = 200
+const BASE_SPEED = 100
 var speed = BASE_SPEED
 
 var money = 0;
@@ -38,9 +38,14 @@ func update_sus_ui():
 
 func set_sus_bar() -> void:
 	$sus.value = sus
+	
+func player_explodes() -> void:
+	if (mana >= 100):
+		queue_free();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+
 	var velocity = Vector2.ZERO # player movement vector.
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1

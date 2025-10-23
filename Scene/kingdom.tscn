@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://biochcbwnh7t7" path="res://Cop/cop.tscn" id="2_7y03x"]
 [ext_resource type="PackedScene" uid="uid://bxgjn72tktmvb" path="res://Scene/object.tscn" id="3_7y03x"]
 [ext_resource type="PackedScene" uid="uid://dy0amx4r6ijjx" path="res://Scene/Destination.tscn" id="5_6jhyd"]
-[ext_resource type="PackedScene" uid="uid://bewng870etnnx" path="res://Scene/pickup_zone.tscn" id="5_uxvl6"]
+[ext_resource type="PackedScene" uid="uid://bbr3lxicb3x8f" path="res://Scene/pickup_zone.tscn" id="5_uxvl6"]
 [ext_resource type="PackedScene" uid="uid://cng8476whurvv" path="res://Scene/Package.tscn" id="6_uxvl6"]
 
 [node name="map" type="Node2D"]
@@ -52,9 +52,11 @@ scale = Vector2(4, 2)
 
 [node name="Package2" parent="Objects" instance=ExtResource("6_uxvl6")]
 position = Vector2(-313, 17)
+script = null
 
 [node name="Package" parent="Objects" instance=ExtResource("6_uxvl6")]
 position = Vector2(-257, -15)
+script = null
 
 [node name="Packagee" parent="Objects" instance=ExtResource("5_uxvl6")]
 position = Vector2(-310, 10)
