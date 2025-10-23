@@ -12,6 +12,14 @@
 script = ExtResource("1_4ntmi")
 metadata/_edit_group_ = true
 
+[node name="Label2" type="Label" parent="."]
+offset_left = -284.00006
+offset_top = -126.999985
+offset_right = 100.99994
+offset_bottom = -103.999985
+scale = Vector2(0.5512825, 0.5791804)
+text = "Don't let this reach 100%"
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 texture_filter = 1
@@ -22,7 +30,7 @@ position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_btcbx")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(2, 2)
 
 [node name="sus" type="ProgressBar" parent="."]
 visible = false
@@ -33,18 +41,20 @@ offset_bottom = -172.0
 theme_override_colors/font_color = Color(0.94785756, 0.1710025, 0.1549311, 1)
 
 [node name="mana" type="ProgressBar" parent="."]
-offset_left = -366.0
-offset_top = -167.0
-offset_right = -65.0
-offset_bottom = -140.0
+z_index = 2
+offset_left = -284.0
+offset_top = -159.0
+offset_right = 17.0
+offset_bottom = -132.0
 theme_override_colors/font_color = Color(0.24822837, 0.49321663, 1, 1)
 
 [node name="money" type="TextEdit" parent="."]
+z_index = 2
 layout_direction = 2
-offset_left = 275.0
-offset_top = -199.0
-offset_right = 372.0
-offset_bottom = -165.0
+offset_left = 189.0
+offset_top = -159.0
+offset_right = 286.0
+offset_bottom = -125.0
 placeholder_text = "0"
 
 [node name="LevitationField" type="Area2D" parent="." groups=["Magical"]]
@@ -62,6 +72,14 @@ texture = ExtResource("3_btcbx")
 position = Vector2(0, 11)
 scale = Vector2(6, 6)
 shape = SubResource("CircleShape2D_gwnis")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -285.0
+offset_top = 145.00002
+offset_right = 100.0
+offset_bottom = 168.00002
+scale = Vector2(0.5512825, 0.5791804)
+text = "WASD or Arrows to move - space to toggle levitation"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

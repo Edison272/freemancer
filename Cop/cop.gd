@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 		var player_pos = get_parent().get_node("Player").position
 		target_pos = player_pos - position
 		safe_dist = 40
-		if (sus_time >= 3 && curr_time > 0.2):
+		if (sus_time >= 2 && curr_time > 0.2):
 			var b = Bullet.instantiate()
 			get_tree().root.add_child(b)
 			b.transform = $PewPew.transform
@@ -72,9 +72,12 @@ func _process(delta: float) -> void:
 
 # function to get a random position within the range
 func get_rand_pos() -> Vector2:
-	var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
-	var random_radius = randf_range(search_dist_min, search_dist_max)
-	return Vector2(cos(random_angle), sin(random_angle)) * random_radius
+	if (position.distance_to(Vector2.ZERO) < 250): # if the cop is within the spawn zone, they go wherever they want
+		var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
+		var random_radius = randf_range(search_dist_min, search_dist_max)
+		return Vector2(cos(random_angle), sin(random_angle)) * random_radius
+	else:											# otherwise, go towards the middle
+		return Vector2.ZERO - position
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:  # detect magic areas used by player
@@ -91,7 +94,7 @@ func set_aggression_state() -> void: #set the vfx vased on the aggression level
 	# sus is a question mark - cop is curious
 	# Alarm is an exclamation point - cop WILL attack
 	var player_pos = get_parent().get_node("Player").position
-	if (sus_time >= 3):
+	if (sus_time >= 2):
 		speed = BASE_SPEED * 2
 		$BigAlarm.show()
 		$Sus.hide()
@@ -99,7 +102,7 @@ func set_aggression_state() -> void: #set the vfx vased on the aggression level
 		$PewPew.show()
 		$PewPew.look_at(player_pos)
 	elif (sus_time >= 1.5): 
-		speed = BASE_SPEED * 1.5
+		speed = BASE_SPEED * 1.2
 		$BigAlarm.hide()
 		$Sus.hide()
 		$Alarm.show()

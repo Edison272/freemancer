@@ -1,7 +1,7 @@
 extends Area2D
 
 # player stats
-const MAX_MANA = 100
+const MAX_MANA = 50
 var mana = MAX_MANA / 2
 
 var spell_state = false
@@ -41,7 +41,7 @@ func set_sus_bar() -> void:
 	$sus.value = sus
 	
 func player_explodes() -> void:
-	if (mana >= 100):
+	if (mana >= MAX_MANA):
 		queue_free();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -85,10 +85,16 @@ func _process(delta: float) -> void:
 			levitation_spell(true)			# activate the spell
 	
 	if (mana < MAX_MANA):
-		mana += delta
+		mana += delta * 2
 	else:
 		position = Vector2.ZERO
-		mana = 0
+		mana = 5
+		money -= 10
+		for i in range(package_array.size()-1, -1, -1): # drop all packages except for the one being carried
+			var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
+			var random_radius = randf_range(0, 50)
+			package_array[i].position = position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
+			package_array.remove_at(i)
 		
 		
 	# package carrying
