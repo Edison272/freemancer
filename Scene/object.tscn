@@ -2,8 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://5rtoy7ffekuc" path="res://icon.svg" id="1_l2ofb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xuqs"]
-size = Vector2(60, 59)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cphs"]
 
 [node name="Object" type="StaticBody2D"]
 
@@ -14,4 +13,4 @@ texture = ExtResource("1_l2ofb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.31253052, 0.5000019)
-shape = SubResource("RectangleShape2D_3xuqs")
+shape = SubResource("RectangleShape2D_1cphs")

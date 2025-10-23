@@ -33,3 +33,11 @@ offset_top = -167.0
 offset_right = -65.0
 offset_bottom = -140.0
 theme_override_colors/font_color = Color(0.24822837, 0.49321663, 1, 1)
+
+[node name="money" type="TextEdit" parent="."]
+layout_direction = 2
+offset_left = 275.0
+offset_top = -199.0
+offset_right = 372.0
+offset_bottom = -165.0
+placeholder_text = "0"
