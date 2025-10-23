@@ -23,6 +23,8 @@ project/assembly_name="Freelancer"
 
 Magical="for any object that is created with magic"
 Bullet=""
+Package=""
+Destination=""
 
 [input]
 

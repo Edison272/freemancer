@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bewng870etnnx"]
+
+[ext_resource type="Script" uid="uid://5lgbfnhudbpo" path="res://Scene/pickup.gd" id="1_euuyx"]
+[ext_resource type="Texture2D" uid="uid://u53ah3bkds11" path="res://Sprites/Square.png" id="1_gjcrj"]
+[ext_resource type="PackedScene" uid="uid://cng8476whurvv" path="res://Scene/Package.tscn" id="2_22hi1"]
+
+[node name="Node2D" type="Node2D"]
+modulate = Color(0.63, 0.40949997, 0, 0.4745098)
+script = ExtResource("1_euuyx")
+package = ExtResource("2_22hi1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gjcrj")

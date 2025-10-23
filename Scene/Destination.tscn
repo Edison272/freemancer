@@ -1,16 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://dy0amx4r6ijjx"]
 
-[ext_resource type="PackedScene" uid="uid://bxgjn72tktmvb" path="res://Scene/object.tscn" id="1_te5au"]
-[ext_resource type="Texture2D" path="res://Sprites/Square.png" id="2_te5au"]
+[ext_resource type="Texture2D" uid="uid://u53ah3bkds11" path="res://Sprites/Square.png" id="2_te5au"]
 
-[node name="Destination" instance=ExtResource("1_te5au")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cphs"]
+
+[node name="Destination" type="Area2D" groups=["Destination"]]
 scale = Vector2(1.25, 1.25)
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["Destination"]]
 modulate = Color(0, 0.64269507, 0.29674134, 1)
-position = Vector2(0, 0)
 scale = Vector2(0.078, 0.078)
 texture = ExtResource("2_te5au")
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1cphs")

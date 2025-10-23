@@ -13,6 +13,10 @@ const BASE_SPEED = 200
 var speed = BASE_SPEED
 
 var money = 0;
+const mortgage = 200
+
+#j*b
+var package_array = []
 
 
 # Called when the node enters the scene tree for the first time.
@@ -61,6 +65,11 @@ func _process(delta: float) -> void:
 			speed = BASE_SPEED
 			levitation_spell(false)			# deactivate the spell
 			
+			if (package_array.size() > 1):
+				for i in range(package_array.size()-1, -1, -1): # drop all packages except for the one being carried
+					package_array[i].position -= Vector2(0, -30)
+					package_array.remove_at(i)
+			
 		elif (mana > 10):					# otherwise, if the player has some mana, cast the spell
 			spell_state = true
 			mana -= 10
@@ -72,6 +81,17 @@ func _process(delta: float) -> void:
 	else:
 		position = Vector2.ZERO
 		mana = 0
+		
+		
+	# package carrying
+	if spell_state: # while spell is active, hold ALL packages over the player's head
+		for i in package_array.size(): # drop all packages except for the one being carried
+			package_array[i].position = position - Vector2(0, 30) - Vector2(0, 10 * (i+1))
+	elif package_array.size() > 0:
+		package_array[0].position = position - Vector2(0, 30)
+		
+	# update money
+	$money.text = str(money) + str(' / ') + str(mortgage) 
 	
 	update_mana_ui()
 	update_sus_ui()
@@ -79,20 +99,23 @@ func _process(delta: float) -> void:
 func levitation_spell(toggleOn: bool) -> void:
 	$LevitationField.visible = toggleOn
 	$LevitationField/LevitationShape.set_deferred("disabled", !toggleOn)
-
-
-func _on_levitation_field_body_entered(body: Node2D) -> void:
-	pass
-	# print('body')
-
-
-func _on_levitation_field_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	pass
 	# print('shape') # Replace with function body.
 
  # Replace with function body.
 
 func _on_area_entered(area: Area2D) -> void:
 	if (area.is_in_group('Bullet')):
-		print('OW')
 		mana += 10
+	if (area.is_in_group('Package')):
+		if (package_array.size() > 0): # if the player isn't casting magic, they can only hold one package
+			return
+		package_array.append(area)
+	if (area.is_in_group('Destination')):
+		for i in range(package_array.size()-1, -1, -1): # drop all packages except for the one being carried
+			var p = package_array[i]
+			package_array.remove_at(i)
+			p.queue_free()
+			money += 5
+func _on_levitation_field_area_entered(area: Area2D) -> void:
+	if (area.is_in_group('Package')):
+		package_array.append(area)
