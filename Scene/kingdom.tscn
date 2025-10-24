@@ -103,3 +103,5 @@ position = Vector2(209, -103)
 
 [node name="Cop8" parent="." instance=ExtResource("2_7y03x")]
 position = Vector2(209, -103)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
