@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7bacjjn5swko"]
+[gd_scene load_steps=8 format=3 uid="uid://c7bacjjn5swko"]
 
 [ext_resource type="PackedScene" uid="uid://7ob5lh5ro8xi" path="res://Player/player.tscn" id="1_6o4hl"]
 [ext_resource type="PackedScene" uid="uid://biochcbwnh7t7" path="res://Cop/cop.tscn" id="2_7y03x"]
 [ext_resource type="PackedScene" uid="uid://bxgjn72tktmvb" path="res://Scene/object.tscn" id="3_7y03x"]
 [ext_resource type="PackedScene" uid="uid://dy0amx4r6ijjx" path="res://Scene/Destination.tscn" id="5_6jhyd"]
 [ext_resource type="PackedScene" uid="uid://bbr3lxicb3x8f" path="res://Scene/pickup_zone.tscn" id="5_uxvl6"]
-[ext_resource type="Script" uid="uid://5lgbfnhudbpo" path="res://Scene/pickup.gd" id="6_l1ox4"]
 [ext_resource type="PackedScene" uid="uid://cng8476whurvv" path="res://Scene/Package.tscn" id="6_uxvl6"]
 [ext_resource type="Texture2D" uid="uid://u53ah3bkds11" path="res://Sprites/Square.png" id="7_nw4dr"]
 
@@ -52,6 +51,15 @@ z_index = -5
 position = Vector2(284, 262)
 scale = Vector2(4, 2)
 
+[node name="Pickup" parent="Objects" instance=ExtResource("5_uxvl6")]
+position = Vector2(-304, 9)
+
+[node name="Package2" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
+position = Vector2(-9, 8)
+
+[node name="Package" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
+position = Vector2(47, -24)
+
 [node name="Label" type="Label" parent="Objects"]
 offset_left = 274.0
 offset_top = -50.0
@@ -78,22 +86,6 @@ z_index = -3
 position = Vector2(25, 0)
 scale = Vector2(1.5, 0.02)
 texture = ExtResource("7_nw4dr")
-
-[node name="Pickup" type="Node2D" parent="Objects"]
-position = Vector2(-300, 0)
-script = ExtResource("6_l1ox4")
-package = ExtResource("6_uxvl6")
-
-[node name="Package2" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
-z_index = 1
-position = Vector2(-8, 23)
-
-[node name="Package" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
-z_index = 1
-position = Vector2(12, -36)
-
-[node name="PickupZone" parent="Objects/Pickup" instance=ExtResource("5_uxvl6")]
-script = null
 
 [node name="Cop3" parent="." instance=ExtResource("2_7y03x")]
 position = Vector2(209, -103)

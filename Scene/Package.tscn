@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ju2s"]
 
 [node name="Package" type="Area2D" groups=["Package"]]
+collision_layer = 3
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://csen2mas3ul3x" path="res://Cop/cop.gd" id="1_qt3mf"]
 [ext_resource type="PackedScene" uid="uid://b7wxdhb2a2mjq" path="res://Bullet/bullet.tscn" id="2_eitmh"]
 [ext_resource type="Texture2D" uid="uid://dh8gp6dr414x8" path="res://Sprites/Circle.png" id="2_i5ewt"]
-[ext_resource type="Texture2D" uid="uid://ctqhrvkw2dsjq" path="res://Sprites/AutoRifle.png" id="4_15lbw"]
+[ext_resource type="Texture2D" uid="uid://ctiel0ercbg55" path="res://Sprites/trumpet.png" id="5_eitmh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qt3mf"]
 
@@ -29,6 +29,7 @@ position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_kxvtk")
 
 [node name="DetectionField" type="Area2D" parent="."]
+scale = Vector2(0.2, 0.2)
 collision_mask = 2
 
 [node name="Sprite2D2" type="Sprite2D" parent="DetectionField"]
@@ -47,7 +48,7 @@ offset_left = -3.0
 offset_top = -43.0
 offset_right = 5.0
 offset_bottom = -20.0
-text = "?"
+text = "..."
 
 [node name="Alarm" type="Label" parent="."]
 texture_filter = 1
@@ -55,7 +56,7 @@ offset_left = -2.0
 offset_top = -43.0
 offset_right = 3.0
 offset_bottom = -20.0
-text = "!"
+text = ": )"
 
 [node name="BigAlarm" type="Label" parent="."]
 texture_filter = 1
@@ -63,12 +64,13 @@ offset_left = -74.0
 offset_top = -44.0
 offset_right = 81.0
 offset_bottom = -21.0
-text = "ITS A MAGE GETTEM"
+text = ": D"
+horizontal_alignment = 1
 
 [node name="PewPew" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(2, 2)
-texture = ExtResource("4_15lbw")
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("5_eitmh")
 
 [connection signal="area_entered" from="DetectionField" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="DetectionField" to="." method="_on_detection_field_area_exited"]

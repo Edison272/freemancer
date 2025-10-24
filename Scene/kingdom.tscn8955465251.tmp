@@ -86,11 +86,11 @@ package = ExtResource("6_uxvl6")
 
 [node name="Package2" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
 z_index = 1
-position = Vector2(-8, 23)
+position = Vector2(-325, 16)
 
 [node name="Package" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
 z_index = 1
-position = Vector2(12, -36)
+position = Vector2(-269, -16)
 
 [node name="PickupZone" parent="Objects/Pickup" instance=ExtResource("5_uxvl6")]
 script = null

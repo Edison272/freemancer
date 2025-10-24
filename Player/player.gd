@@ -1,7 +1,7 @@
 extends Area2D
 
 # player stats
-const MAX_MANA = 50
+const MAX_MANA = 100
 var mana = MAX_MANA / 2
 
 var spell_state = false
@@ -75,7 +75,9 @@ func _process(delta: float) -> void:
 				for i in range(package_array.size()-1, -1, -1): # drop all packages except for the one being carried
 					var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
 					var random_radius = randf_range(0, 50)
-					package_array[i].position = position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
+					package_array[i].global_position = global_position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
+					remove_child(package_array[i])
+					get_parent().get_node("Objects").get_node("Pickup").add_child(package_array[i])
 					package_array.remove_at(i)
 			
 		elif (mana > 10):					# otherwise, if the player has some mana, cast the spell
@@ -93,16 +95,18 @@ func _process(delta: float) -> void:
 		for i in range(package_array.size()-1, -1, -1): # drop all packages except for the one being carried
 			var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
 			var random_radius = randf_range(0, 50)
-			package_array[i].position = position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
+			package_array[i].global_position = global_position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
+			remove_child(package_array[i])
+			get_parent().get_node("Objects").get_node("Pickup").add_child(package_array[i])
 			package_array.remove_at(i)
 		
 		
 	# package carrying
 	if spell_state: # while spell is active, hold ALL packages over the player's head
 		for i in package_array.size(): # drop all packages except for the one being carried
-			package_array[i].position = position - Vector2(0, 30) - Vector2(0, 10 * (i+1))
+			package_array[i].position = Vector2(0, -30) + Vector2(0, -10 * (i))
 	elif package_array.size() > 0:
-		package_array[0].position = position - Vector2(0, 30)
+		package_array[0].position = Vector2(0, -30)
 		
 	# update money
 	$money.text = str(money) + str(' / ') + str(mortgage) 
@@ -119,11 +123,13 @@ func levitation_spell(toggleOn: bool) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if (area.is_in_group('Bullet')):
-		mana += 10
-	if (area.is_in_group('Package')):
+		speed += 1
+	if (area.is_in_group('Package') && area.get_parent().name == 'Pickup'):
 		if (package_array.size() > 0): # if the player isn't casting magic, they can only hold one package
 			return
 		package_array.append(area)
+		area.get_parent().remove_child(area)
+		add_child(area)
 	if (area.is_in_group('Destination')):
 		for i in range(package_array.size()-1, -1, -1): # drop all packages except for the one being carried
 			var p = package_array[i]
@@ -131,6 +137,8 @@ func _on_area_entered(area: Area2D) -> void:
 			p.queue_free()
 			money += 5
 func _on_levitation_field_area_entered(area: Area2D) -> void:
-	if (area.is_in_group('Package')):
+	if (area.is_in_group('Package') && area.get_parent().name == 'Pickup'):
 		if (package_array.size() < max_packages): # if the player isn't casting magic, they can only hold one package
 			package_array.append(area)
+			area.get_parent().remove_child(area)
+			add_child(area)

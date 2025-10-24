@@ -80,19 +80,19 @@ scale = Vector2(1.5, 0.02)
 texture = ExtResource("7_nw4dr")
 
 [node name="Pickup" type="Node2D" parent="Objects"]
-position = Vector2(-300, 0)
 script = ExtResource("6_l1ox4")
 package = ExtResource("6_uxvl6")
 
 [node name="Package2" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
 z_index = 1
-position = Vector2(-8, 23)
+position = Vector2(-325, 16)
 
 [node name="Package" parent="Objects/Pickup" instance=ExtResource("6_uxvl6")]
 z_index = 1
-position = Vector2(12, -36)
+position = Vector2(-269, -16)
 
 [node name="PickupZone" parent="Objects/Pickup" instance=ExtResource("5_uxvl6")]
+position = Vector2(-316, 8)
 script = null
 
 [node name="Cop3" parent="." instance=ExtResource("2_7y03x")]

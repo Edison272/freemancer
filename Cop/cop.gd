@@ -14,6 +14,10 @@ var curr_time = 0
 var suspicious = false
 var sus_time = 0
 
+# help player!
+var target_package = null
+var has_package = false
+
 # shooting
 @export var Bullet : PackedScene
 
@@ -22,7 +26,8 @@ func _ready() -> void:
 	# start at a random position with a random target direction
 	# position = get_rand_pos()
 	suspicious = false
-	target_pos = get_rand_pos()
+	target_package = null
+	target_pos = Vector2.ZERO
 	$BigAlarm.hide()
 	$Sus.hide()
 	$Alarm.hide()
@@ -31,14 +36,31 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var velocity = (target_pos).normalized() * speed
-		
-	# update player position based on velocity
-	if sus_time > 0.75:
-		if position.distance_to(get_parent().get_node("Player").position) > safe_dist:
-			position += velocity * delta
+	if (target_package != null): # find package
+		if has_package:
+			target_package.global_position = global_position - Vector2(0, 30)
+			target_pos = get_parent().get_node("Objects").get_node("Destination").global_position - global_position
+		elif (target_package.get_parent().name != 'Pickup'):
+			target_package = null
+		else:
+			target_pos = target_package.global_position - global_position
+			
 	else:
-		position += velocity * delta
+		var package_search = get_parent().get_node("Objects").get_node("Pickup").get_tree().get_nodes_in_group('Package')
+		if (package_search.size() > 0):
+			var nearest_p = package_search[0]
+			for p in package_search:
+				if p.get_parent().name == "Pickup":
+					if nearest_p.get_parent().name != "Pickup":
+						nearest_p = p
+						continue
+					if p.global_position.distance_to(global_position) < nearest_p.global_position.distance_to(global_position):
+						nearest_p = p
+			target_package = nearest_p
+			
+	var velocity = (target_pos).normalized() * speed
+	# update player position based on velocity
+	position += velocity * delta
 	
 	# position timer - have the entity wander to a diff position every 5 seconds
 	curr_time += delta
@@ -46,25 +68,18 @@ func _process(delta: float) -> void:
 		sus_time = 0
 	if (sus_time >= 0.5):  # if suspicion is over a certain level, find the player
 		var player_pos = get_parent().get_node("Player").position
-		target_pos = player_pos - position
 		safe_dist = 40
-		if (sus_time >= 2 && curr_time > 0.2):
+		if (sus_time >= 2 && curr_time > 0.5):
 			var b = Bullet.instantiate()
 			get_tree().root.add_child(b)
 			b.transform = $PewPew.transform
-			b.position = position
+			b.position = position + get_rand_pos()
 			curr_time = 0
 			safe_dist = 120
 		if (sus_time > 4):
 			sus_time = 4
-			
-	elif(curr_time >= wander_time):			# wander arnd when minimal suspicion
-		target_pos = get_rand_pos()
-		curr_time = 0;
-		safe_dist = 1
 		
 	if (suspicious):  # increase suspicion level when suspicious, otherwise decrease it
-		print(sus_time)
 		sus_time += delta
 	else:
 		sus_time -= delta * 2
@@ -82,8 +97,22 @@ func get_rand_pos() -> Vector2:
 
 func _on_area_2d_area_entered(area: Area2D) -> void:  # detect magic areas used by player
 	if (area.is_in_group('Magical')):
-		print('MAGE DETECTED')
 		suspicious = true
+	if (area.is_in_group('Package') && area.get_parent().name == 'Pickup'):
+		print('PACKAGE DETECTED')
+		if (!has_package):
+			target_package = area
+			has_package = true
+			area.get_parent().remove_child(area)
+			add_child(area)
+			print(target_package.get_parent().name)
+	if (area.is_in_group('Destination')):
+		if (has_package):
+			print('PACKAGE DELIVERED')
+			has_package = false
+			target_pos = Vector2.ZERO
+			target_package.queue_free()
+		
 
 
 func _on_detection_field_area_exited(area: Area2D) -> void:

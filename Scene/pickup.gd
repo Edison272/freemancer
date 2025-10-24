@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 		var random_angle = randf_range(0.0, TAU) # TAU is 2 * PI
 		var random_radius = randf_range(0, 100)
 		var p = package.instantiate()
-		get_tree().root.add_child(p)
-		p.position = position + Vector2(cos(random_angle), sin(random_angle)) * random_radius
+		add_child(p)
+		p.position = Vector2(cos(random_angle), sin(random_angle)) * random_radius
 	else:
 		spawn_time += delta
