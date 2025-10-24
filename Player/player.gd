@@ -12,7 +12,7 @@ var sus = 1
 const BASE_SPEED = 100
 var speed = BASE_SPEED
 
-var money = 0;
+@export var money = 0;
 const mortgage = 200
 
 #j*b

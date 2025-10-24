@@ -110,6 +110,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:  # detect magic areas used 
 		if (has_package):
 			print('PACKAGE DELIVERED')
 			has_package = false
+			get_parent().get_node("Player").money += 3
 			target_pos = Vector2.ZERO
 			target_package.queue_free()
 		
