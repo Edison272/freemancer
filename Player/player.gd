@@ -9,7 +9,7 @@ var spell_state = false
 const MAX_SUS = 5
 var sus = 1
 
-const BASE_SPEED = 100
+const BASE_SPEED = 170
 var speed = BASE_SPEED
 
 @export var money = 0;
@@ -83,7 +83,7 @@ func _process(delta: float) -> void:
 		elif (mana > 10):					# otherwise, if the player has some mana, cast the spell
 			spell_state = true
 			mana -= 10
-			speed = BASE_SPEED * 2
+			speed = BASE_SPEED * 0.5
 			levitation_spell(true)			# activate the spell
 	
 	if (mana < MAX_MANA):
